@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="/res/layui/css/layui.css">
     <link rel="stylesheet" href="/res/static/css/mian.css">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/PersonalCenter.css">
+    <link rel="stylesheet" href="/css/PersonalCenter.css">
     <link rel="stylesheet" href="/font_n0j7f1384jcerk9/iconfont.css"/>
     <link rel="stylesheet" href="font_uwffrsy00bkgwrk9/iconfont.css"/>
 
     <script src="/js/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/cookie.js"></script>
+    <script src="/js/successLogin.js"></script>
+    <script src="/js/person.js"></script>
 
     <style>
         .lay-blog{
@@ -35,6 +38,26 @@
         #content{
             margin-top: 40px;
         }
+        /*头像*/
+        .last_mouse{
+            width: 50px;
+            height: 50px;
+            display: flex;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            display:inline;
+        }
+        /*设置鼠标移上去浮动*/
+        .get_mouse{
+            /*border-style: outset;
+            border-width:2px;
+            border-color:white;*/
+            border-style: outset;
+            border-width: 2px;
+            border-color: wheat;
+        }
     </style>
 </head>
 <body class="lay-blog">
@@ -48,11 +71,11 @@
                 <button class="back_img">编辑封面图片</button>
             </div>
             <div class="img">
-                <img class="touXiang" src="./image/timg.jpg" alt="">
+                <img class="touXiang" src="/head/12114ca4ba7dde9d0400c54d23a1d5de.jpg" alt="">
 
                 <p class="nickname"></p>
                 <span>暂无个人资料</span>
-                <button><a href="./edit.html">编辑个人资料</a></button>
+                <button><a href="javascript:void(0)">编辑个人资料</a></button>
                 <div class="clear"></div>
             </div>
         </header>

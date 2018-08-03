@@ -3,11 +3,20 @@ $(function () {
     $("input").click(function () {
         $("#login_1").html("");
     });
+
     //每次加载login.html页面的时候，都要取出cookie中的账号和密码
+   if(getCookie("remember")!=null){
+       //如果cookie中不为空，则默认勾选记住我
+       $("input[name='login_rem']")[0].checked=true;
+   }
+
     $("input[name='login_username']").val(getCookie("remember"));
     $("#login_form").submit(function () {
         return login();
     });
+    //登录成功后页面变化
+
+
 });
 function login() {
     var login_key=$("input[name='login_username']").val().trim();
@@ -52,6 +61,7 @@ function login() {
             data: data,//前端已经判断好了，如果是邮箱，data就只封装了邮箱和密码
             success: function (result) {
                 if (result.status == 200) {
+                    //addcookie();
                     $("#login_1").html("");
                     var rem = $("input[name='login_rem']").get(0).checked;
                     if (rem == true) {
@@ -71,7 +81,7 @@ function login() {
 
         });
     }
-    return true;
+    return false;
 }
 
 // function spaceTest(str) {

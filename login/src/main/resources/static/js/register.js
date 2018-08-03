@@ -1,25 +1,23 @@
 var flag = true;
 $(function () {
 
-    var numReg = new RegExp("^\d+$ ");
-    var atReg = new RegExp("^((?!@).)*$");
+   /* var numReg = new RegExp("^\d+$","g");
+    var atReg = /^((?!@).)*$/g;*/
     $("input[name='username']").blur(function () {
-
         var username = $(this).val();
         username = username.trim();
-        if (numReg.test(username)) {
+        var test_username=/^((?!@).)*$/g.test(username);
+        if (/^\d+$/g.test(username)) {
             flag = flag & false;
             $("#span_1").html("用户名不能为纯数字").css({"float": "right", "color": "red"});
-        } else if (atReg.test(username)) {
+        } else if (!test_username) {
             flag = flag & false;
             $("#span_1").html("用户名不能有@").css({"float": "right", "color": "red"});
-        } else if (spaceTest(username)) {
-            $("#span_1").html("用户名中不能有空格").css({"float": "right", "color": "red"});
-        } else if (username.length < 6 || username.length > 15) {
+        }else if (username.length < 6 || username.length > 15) {
             flag = flag & false;
             $("#span_1").html("请输入6-15位字符").css({"float": "right", "color": "red"});
         } else {
-            flag = flag & true;
+            //flag = flag & true;
             $("#span_1").html("");
         }
     });
@@ -32,10 +30,8 @@ $(function () {
         if (password.length < 6) {
             flag = flag & false;
             $("#span_2").html("至少6位字母或数字").css({"float": "right", "color": "red"});
-        } else if (spaceTest(password)) {
-            $("#span_2").html("密码中不能有空格").css({"float": "right", "color": "red"});
         } else {
-            flag = flag & true;
+           // flag = flag & true;
             $("#span_2").html("");
         }
     });
@@ -46,18 +42,19 @@ $(function () {
             flag = flag & false;
             $("#span_3").html("密码不一致").css({"float": "right", "color": "red"});
         } else {
-            flag = flag & true;
+           // flag = flag & true;
             $("#span_3").html("");
         }
     });
     $("input[name='phone']").blur(function () {
         var phone = $(this).val();
         phone = phone.trim();
-        if (phone.length < 11 || !numReg.test(phone)) {
+        var testPhone=/^\d+$/g.test(phone);
+        if (phone.length < 11 || !testPhone) {
             flag = flag & false;
             $("#span_4").html("请输入正确的电话号码").css({"float": "right", "color": "red"});
         } else {
-            flag = flag & true;
+            //flag = flag & true;
             $("#span_4").html("");
         }
     });
@@ -69,7 +66,7 @@ $(function () {
             flag = flag & false;
             $("#span_5").html("请输入正确的邮箱地址").css({"float": "right", "color": "red"});
         } else {
-            flag = flag & true;
+            //flag = flag & true;
             $("#span_5").html("");
         }
     });

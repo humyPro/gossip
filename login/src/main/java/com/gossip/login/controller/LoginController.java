@@ -1,10 +1,14 @@
 package com.gossip.login.controller;
 
 import com.gossip.login.entity.User;
+import com.gossip.login.util.CookieUtils;
 import com.gossip.login.vo.SysResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -30,12 +34,20 @@ public class LoginController {
     }
     @PostMapping("/user/login")
     @ResponseBody
-    public SysResult login(User user){
+    public SysResult login(User user, HttpServletRequest request, HttpServletResponse response){
         System.out.println(user);
         if(user.getHeadpic()==null){
-            System.out.println("ahahhah ");
+            System.out.println("假装做了数据校验 ");
         }
         //return SysResult.build(1, "失败");
-        return SysResult.oK();
+        CookieUtils.setCookie(request, response, "USER_TICKET", "asdsadsad");
+        user.setUsername("行止由风");
+        user.setId(100L);
+        return SysResult.oK(user);
+    }
+    @GetMapping("user/{ticket}")
+    public String goHone(@PathVariable String ticket){
+        System.out.println(ticket);
+        return "person";
     }
 }
