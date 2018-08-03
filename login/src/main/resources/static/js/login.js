@@ -30,6 +30,7 @@ function login() {
     var numReg=/^\d+$/g;
     var emailReg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$","g");
     var data;
+    //不知道为什么，在if中判断失效，只能写在外面
     var isPhone=numReg.test(login_key);
     if(emailReg.test(login_key)){
         var email=login_key;
