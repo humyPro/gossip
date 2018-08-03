@@ -63,19 +63,23 @@
                 <h1 class="text-center">登录</h1>
             </div>
             <div class="modal-body">
-                <form class="form-group" action="">
+                <form class="form-group" id="login_form">
                     <div class="form-group">
-                        <label for="">用户名</label>
-                        <input class="form-control" type="text" placeholder="">
+                        <label for="">账号(用户名/电话号码/邮箱)</label><span id="login_1"></span>
+                        <input class="form-control" name="login_username" type="text" placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="">密码</label>
-                        <input class="form-control" type="password" placeholder="">
+                        <label for="">密码</label><span id="login_2"></span>
+                        <input class="form-control" name="login_password" type="password" placeholder="">
+                    </div>
+                    <div class="checkbox">
+                        <label> <input type="checkbox" name="login_rem" value="true">记住我</label>
                     </div>
                     <div class="text-right">
                         <button class="btn btn-primary" type="submit">登录</button>
                         <button class="btn btn-danger" data-dismiss="modal">取消</button>
                     </div>
+
                     <a id="register_a" href="" data-toggle="modal" data-dismiss="modal" data-target="#register">还没有账号？点我注册</a>
                 </form>
             </div>

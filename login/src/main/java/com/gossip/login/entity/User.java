@@ -13,6 +13,7 @@ public class User implements Serializable {
     private Long id;
     private String username;
     private String password;
+    private String phone;
     private String email;
     private String headpic;
     private Date lastLoginTime;
@@ -44,6 +45,15 @@ public class User implements Serializable {
         this.password = password;
     }
 
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -63,6 +73,7 @@ public class User implements Serializable {
     public Date getLastLoginTime() {
         return lastLoginTime;
     }
+
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
@@ -91,13 +102,13 @@ public class User implements Serializable {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", headpic='" + headpic + '\'' +
                 ", lastLoginTime=" + lastLoginTime +
@@ -106,4 +117,5 @@ public class User implements Serializable {
                 ", updated=" + updated +
                 '}';
     }
+
 }
