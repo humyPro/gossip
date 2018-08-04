@@ -13,6 +13,8 @@
 
     <script src="/js/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <!-- ajax 文件上传 ajaxfileupload.js-->
+    <script src="/js/ajaxfileupload.js"></script>
     <script src="/js/cookie.js"></script>
     <script src="/js/successLogin.js"></script>
     <script src="/js/person.js"></script>
@@ -71,8 +73,9 @@
                 <button class="back_img">编辑封面图片</button>
             </div>
             <div class="img">
-                <img class="touXiang" src="/head/12114ca4ba7dde9d0400c54d23a1d5de.jpg" alt="">
-
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#head_upload">
+                     <img class="touXiang" src="/head/12114ca4ba7dde9d0400c54d23a1d5de.jpg" alt="">
+                </a>
                 <p class="nickname"></p>
                 <span>暂无个人资料</span>
                 <button><a href="javascript:void(0)">编辑个人资料</a></button>
@@ -180,5 +183,40 @@
 </div>
 
 <div th:replace="common/bottom::#bottom_bar"></div>
+
+<!-- 下面这部分  -->
+<div id="head_upload" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#e5e5e5">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h3 class="text-center" style="color: #0d79d1">上传头像</h3>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <form class="form-group" enctype="multipart/form-data" id="uploadForm" >
+                    <div class="form-group">
+                        <!--<label for="" >选择图片</label>-->
+                        <!--<input type="hidden" name="picture" value="uploadpic">-->
+                        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td bgcolor="#FFFFFF">
+                                    <input type="file" id="changePic" name="pic"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <button id="submit_upload" class="btn btn-xs btn-primary" type="submit">确认</button>&nbsp;&nbsp;
+                        <button class="btn btn-xs btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
