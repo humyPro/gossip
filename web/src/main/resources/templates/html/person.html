@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>个人主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/res/layui/css/layui.css">
+    <link rel="stylesheet" href="/res/static/css/mian.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/PersonalCenter.css">
+    <link rel="stylesheet" href="/font_n0j7f1384jcerk9/iconfont.css"/>
+    <link rel="stylesheet" href="font_uwffrsy00bkgwrk9/iconfont.css"/>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <!-- ajax 文件上传 ajaxfileupload.js-->
+    <script src="/js/ajaxfileupload.js"></script>
+    <!--<script src="/js/cookie.js"></script>-->
+    <script src="/js/successLogin.js"></script>
+    <script src="/js/person.js"></script>
+
+    <style>
+        .lay-blog{
+            /*保证footer是相对于container位置绝对定位*/
+            position:relative;
+            width:100%;
+            min-height:100%;
+            /*设置padding-bottom值大于等于footer的height值，以保证main的内容能够全部显示出来而不被footer遮盖；*/
+            padding-bottom: 100px;
+            box-sizing: border-box;
+        }
+        .footer{
+            width: 100%;
+            height:100px;   /* footer的高度一定要是固定值*/
+            position:absolute;
+            bottom:0px;
+            left:0px;
+            background: #333;
+        }
+        #content{
+            margin-top: 40px;
+        }
+        /*头像*/
+        .last_mouse{
+            width: 50px;
+            height: 50px;
+            display: flex;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            display:inline;
+        }
+        /*设置鼠标移上去浮动*/
+        .get_mouse{
+            /*border-style: outset;
+            border-width:2px;
+            border-color:white;*/
+            border-style: outset;
+            border-width: 2px;
+            border-color: wheat;
+        }
+    </style>
+</head>
+<body class="lay-blog">
+
+<div th:replace="common/topbar::#top_bar"></div>
+
+
+<div id="content">
+    <div>
+
+        <header>
+            <div class="back">
+                <button class="back_img">编辑封面图片</button>
+            </div>
+            <div class="img">
+                <a href="#" data-toggle="modal" data-target="#head_upload">
+                     <img class="touXiang"  th:src="${user.headpic}">
+                </a>
+                <!--<span th:text="${user.headpic}">哈哈哈</span>-->
+                <p class="nickname"></p>
+                <span>暂无个人资料</span>
+                <button><a href="#" data-toggle="modal" data-target="#update" style="text-decoration: none">编辑个人资料</a></button>
+                <div class="clear"></div>
+            </div>
+        </header>
+        <div id="left">
+            <ul>
+                <li><a href="" class="le_a">动态</a></li>
+                <li><a href="" class="le_a">回答<span></span></a></li>
+                <li><a href="" class="le_a">提问<span></span></a></li>
+                <li><a href="" class="le_a">文章<span></span></a></li>
+                <li><a href="" class="le_a">专栏<span></span></a></li>
+                <li><a href="" class="le_a">想法<span></span></a></li>
+                <li><a href="javascript:void(0);" class="le_a">更多﹀</a></li>
+                <li class="clear"></li>
+            </ul>
+            <div id="content_left">
+                <div><span>我的动态</span></div>
+
+                <div class="dongTai">
+                    <div class="close-div">
+                        <div class="close-hidden-div">不感兴趣</div>
+                    </div>
+                    <div class="Feed-title">
+                        发表了文章
+                    </div>
+                    <div class="contents">
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+        <div id="right">
+            <div class="geren">
+                <div>个人成就</div>
+                <div>参与了<span></span>次公共编辑</div>
+            </div>
+            <div id="fan">
+                <div>
+                    <div class="fan_css">关注了</div>
+                    <div class="fan_num">0</div>
+                </div>
+                <div>
+                    <div class="fan_css">关注者</div>
+                    <div class="fan_num">0</div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+</div>
+
+<div th:replace="common/bottom::#bottom_bar"></div>
+
+<!-- 下面这部分 图片上传  -->
+<div id="head_upload" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#e5e5e5">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h3 class="text-center" style="color: #0d79d1">上传头像</h3>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <form class="form-group" enctype="multipart/form-data" id="uploadForm">
+
+                    <div class="form-group">
+                        <!--<label for="" >选择图片</label>-->
+                        <!--<input type="hidden" name="picture" value="uploadpic">-->
+                        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td bgcolor="#FFFFFF">
+                                    <input type="file" id="changePic" name="changePic"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <button id="submit_upload" class="btn btn-xs btn-primary" type="submit">确认</button>&nbsp;&nbsp;
+                        <button class="btn btn-xs btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改信息  -->
+<div id="update" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-sm" >
+        <div class="modal-content" style="background-color:#e5e5e5">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h2 class="text-center" style="color: #0d79d1">修改ID</h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-group">
+                    <div class="form-group">
+                        <label for="" >用户名</label><span id="span_1"></span>
+                        <input name="username" class="form-control" maxlength="15" type="text" placeholder="6-15位字母或数字">
+                    </div>
+                    <div class="text-center">
+                        <button id="submit_upload" class="btn btn-xs btn-primary" type="submit">确认</button>&nbsp;&nbsp;
+                        <button class="btn btn-xs btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
