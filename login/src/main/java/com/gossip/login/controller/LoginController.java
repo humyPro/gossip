@@ -47,7 +47,6 @@ public class LoginController {
     }
     @GetMapping("user/{ticket}")
     public String goHone(@PathVariable String ticket){
-        System.out.println(ticket);
         return "person";
     }
 }

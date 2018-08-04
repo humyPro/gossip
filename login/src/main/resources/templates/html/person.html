@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="font_uwffrsy00bkgwrk9/iconfont.css"/>
 
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/cookie.js"></script>
+    <!-- ajax 文件上传 ajaxfileupload.js-->
+    <script src="/js/ajaxfileupload.js"></script>
+    <!--<script src="/js/cookie.js"></script>-->
     <script src="/js/successLogin.js"></script>
     <script src="/js/person.js"></script>
 
@@ -61,21 +64,25 @@
     </style>
 </head>
 <body class="lay-blog">
+
 <div th:replace="common/topbar::#top_bar"></div>
 
 
 <div id="content">
     <div>
+
         <header>
             <div class="back">
                 <button class="back_img">编辑封面图片</button>
             </div>
             <div class="img">
-                <img class="touXiang" src="/head/12114ca4ba7dde9d0400c54d23a1d5de.jpg" alt="">
-
+                <a href="#" data-toggle="modal" data-target="#head_upload">
+                     <img class="touXiang"  th:src="${user.headpic}">
+                </a>
+                <!--<span th:text="${user.headpic}">哈哈哈</span>-->
                 <p class="nickname"></p>
                 <span>暂无个人资料</span>
-                <button><a href="javascript:void(0)">编辑个人资料</a></button>
+                <button><a href="#" data-toggle="modal" data-target="#update" style="text-decoration: none">编辑个人资料</a></button>
                 <div class="clear"></div>
             </div>
         </header>
@@ -101,52 +108,6 @@
                         发表了文章
                     </div>
                     <div class="contents">
-                        <!--<div class="AuthorInfo-content">
-                            <a href="javascript:void(0)">
-                                <img class="tx-img" src="./image/timg.jpg" alt="">
-                               <span class="nickname">
-                               二营长，把他娘的意大利炮拿来！
-                               </span>
-
-
-                            </a>
-
-                        </div>
-                        <h3>三鹿为什么敢往奶粉里加三聚氰胺？</h3>
-
-                        <div class="dongTai-textContent">
-                            <div class="text-div1">
-                                高票答案还是有点外行了。 公司（老东家）当年是三鹿的股东，三聚氰胺这件事也是我司捅到新西兰农业部，进而捅到AQSIQ和政府高层的，有一些事不太好细说。…
-                                <a href="javascript:void(0)" class="all-a">阅读全文</a>
-                            </div>
-                            <div class="text-div2">
-                                <p>6,181 人赞同了该回答</p>
-                                高票答案还是有点外行了。公司（老东家）当年是三鹿的股东，三聚氰胺这件事也是我司捅到新西兰农业部，进而捅到AQSIQ和政府高层的，有一些事不太好细说。以下谨代表我个人，不代表我司观点：1. 三聚氰胺不是奶农掺的，也不是三鹿掺的，而是奶站掺的。三鹿没有动机没有胆量，而剂量拿捏不是没有相关知识奶农能掌握的。奶站当年处于三不管地带，既非公司又非合作社，也不受奶企监管，不由奶企经营，基本就是村长的小舅子开的（比喻），没有一个部委承认应该归自己管。2. 这件事不能说三鹿事先知情，在事发之前，三鹿有很多员工的小孩也在吃自家品牌的奶粉。3. 但也不能说三鹿完全不知情。4. 在事发之前，三聚氰胺不在质监局的检测指标里面。甚至大量婴儿发病后，很长时间质监局都不知道是什么原因引起的，直到有人联想到2004年的出口宠物饲料被三聚氰胺污染的事件才检测了样品的这个指标。5. 向奶里加三聚氰胺的人是否一开始就知道三聚氰胺有害，无从考证。
-                                <p>发布于 2016-01-07</p>
-                            </div>
-                        </div>
-
-                        <div class="ContentItem-actions">
-                       <span>
-                           <button class="VoteButton">
-                               <img src="./image/t_sanjaio.png" alt="">6.2k
-                           </button>
-
-                           <button class="ContentItem-action">
-                               <img src="./image/fw.png" alt="">
-                               <span>680条评论</span>
-                           </button>
-
-                           <button class="ContentItem-action btn-fenXiang">
-                               <img src="./image/fx.png" alt="">
-                               <span>分享</span>
-                           </button>
-                           <button class="ContentItem-action btn-sc">
-                               <img src="./image/sc.png" alt="">
-                               <span>收藏</span>
-                           </button>
-                       </span>
-                        </div>-->
 
                     </div>
 
@@ -180,5 +141,68 @@
 </div>
 
 <div th:replace="common/bottom::#bottom_bar"></div>
+
+<!-- 下面这部分 图片上传  -->
+<div id="head_upload" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#e5e5e5">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h3 class="text-center" style="color: #0d79d1">上传头像</h3>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <form class="form-group" enctype="multipart/form-data" id="uploadForm">
+
+                    <div class="form-group">
+                        <!--<label for="" >选择图片</label>-->
+                        <!--<input type="hidden" name="picture" value="uploadpic">-->
+                        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td bgcolor="#FFFFFF">
+                                    <input type="file" id="changePic" name="changePic"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <button id="submit_upload" class="btn btn-xs btn-primary" type="submit">确认</button>&nbsp;&nbsp;
+                        <button class="btn btn-xs btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改信息  -->
+<div id="update" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-sm" >
+        <div class="modal-content" style="background-color:#e5e5e5">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h2 class="text-center" style="color: #0d79d1">修改ID</h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-group">
+                    <div class="form-group">
+                        <label for="" >用户名</label><span id="span_1"></span>
+                        <input name="username" class="form-control" maxlength="15" type="text" placeholder="6-15位字母或数字">
+                    </div>
+                    <div class="text-center">
+                        <button id="submit_upload" class="btn btn-xs btn-primary" type="submit">确认</button>&nbsp;&nbsp;
+                        <button class="btn btn-xs btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
