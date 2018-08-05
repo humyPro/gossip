@@ -17,28 +17,31 @@ $(function () {
 
     var ticket=$.cookie("USER_TICKET");
 
-    if (ticket.length != 0) {
+    if (ticket!=null&&ticket.length != 0) {
         changeMeau(ticket);
     }
 
 });
 function login() {
-    var login_key=$("input[name='login_username']").val().trim();
+    var login_key=$("input[name='login_username']").val().trim()+'';
     var password=$("input[name='login_password']").val().trim();
 
-    var flag=true;
+    var f1,f2;
     if(login_key.length<=0){
-        flag=flag&false;
+        f1=false;
         $("#login_1").html("账号不能为空").css({"float":"right","color":"red"});
     }else{
+        f1=true;
         $("#login_1").html("");
     }
     if(password.length<=0){
-        flag=flag&false;
+        f2=false;
         $("#login_2").html("密码不能为空").css({"float":"right","color":"red"});
     }else{
+        f2=true;
         $("#login_2").html("");
     }
+
 //判断key是用户名还是邮箱还是电话号码
     var numReg=/^\d+$/g;
     var emailReg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$","g");
@@ -56,8 +59,8 @@ function login() {
         var username=login_key;
         data={"username":username,"password":password};
     }
-
-    if(flag) {
+    //帐号密码不能为空
+    if(f1&&f2) {
         $.ajax({//登录
             url: "/user/login",
             type: "post",
@@ -69,14 +72,21 @@ function login() {
                     $("#login_1").html("");
                     var rem = $("input[name='login_rem']").get(0).checked;
                     if (rem == true) {
-                        $.cookie('remember');
-                        $.cookie
+                        var user=result.data;
+                        if(user.username!=null&&user,username.length!=0){
+                            $.cookie('remember',user.username);
+                        }else if(user.phone!=null&&user.phone.length!=0){
+                            $.cookie('remember',user.phone);
+                        }else if(user.email!=null&&user.email.length!=0){
+                            $.cookie('remember',user.email);
+                        }
                     } else {
                         $.cookie('remember',null);
                     }
                     location.reload();
                 } else {
-                    $("#login_1").html("用户名或密码错误").css({"float": "right", "color": "red"});
+                    var msg=result.msg;
+                    $("#login_1").html(msg).css({"float": "right", "color": "red"});
                 }
 
             },

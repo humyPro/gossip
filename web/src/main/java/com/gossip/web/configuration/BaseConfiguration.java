@@ -1,14 +1,19 @@
 package com.gossip.web.configuration;
 
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.validation.MessageCodesResolver;
+import org.springframework.validation.Validator;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.config.annotation.*;
+
+import java.util.List;
 
 /**
  * @author humy
@@ -27,18 +32,16 @@ public class BaseConfiguration {
         return resolver;
     }
     @Bean
-    public WebMvcConfigurer webMvcConfigurer(){
-        return new WebMvcConfigurer() {
-            @Override
-            public void addInterceptors(InterceptorRegistry registry) {
-
-            }
-
+    public WebMvcConfigurerAdapter webMvcConfigurerAdapter(){
+        return new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
+                super.addViewControllers(registry);
                 registry.addViewController("/").setViewName("index");
-                registry.addViewController("index").setViewName("index");
+                registry.addViewController("/index").setViewName("index" +
+                        "");
             }
         };
     }
+
 }

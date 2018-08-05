@@ -1,5 +1,8 @@
 package com.gossip.web.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +15,8 @@ import java.util.Date;
 public class User implements Serializable {
 
     private static final long serialVersionUID = -1522190446954688278L;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String password;
